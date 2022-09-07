@@ -47,7 +47,9 @@ def create_lkas11(packer, frame, car_fingerprint, apply_steer, steer_req,
     # SysWarning 5 = keep hands on wheel (red)
     # SysWarning 6 = keep hands on wheel (red) + beep
     # Note: the warning is hidden while the blinkers are on
-    values["CF_Lkas_SysWarning"] = 4 if sys_warning else 0
+    # janpoo6427
+    if car_fingerprint != CAR.TUCSON_TL:
+      values["CF_Lkas_SysWarning"] = 4 if sys_warning else 0
 
   elif car_fingerprint == CAR.GENESIS_DH:
     values["CF_Lkas_LdwsActivemode"] = 2
@@ -84,7 +86,7 @@ def create_clu11(packer, frame, clu11, button, speed = None, bus = 0):
 
 def create_lfahda_mfc(packer, enabled, hda_set_speed=0):
   values = {
-    "LFA_Icon_State": 2 if enabled else 0,
+    "LFA_Icon_State": 2 if hda_set_speed else 0,
     "HDA_Active": 1 if hda_set_speed else 0,
     #"HDA_Icon_State": 2 if hda_set_speed else 0,
     "HDA_Icon_State": 2 if enabled else 0,

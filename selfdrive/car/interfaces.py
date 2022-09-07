@@ -121,9 +121,11 @@ class CarInterfaceBase(ABC):
   def create_common_events(self, cs_out, extra_gears=None, pcm_enable=True):
     events = Events()
 
+    # janpoo6427
+    # add 'and not cs_out.brakePressed'
     if self.user_specific_feature == 11:
       if cs_out.gearShifter != GearShifter.drive and (extra_gears is None or
-        cs_out.gearShifter not in extra_gears) and cs_out.cruiseState.enabled:
+        cs_out.gearShifter not in extra_gears) and cs_out.cruiseState.enabled and not cs_out.brakePressed:
         events.add(EventName.gearNotD)
       if cs_out.gearShifter == GearShifter.reverse:
         events.add(EventName.reverseGear)
